@@ -1,0 +1,34 @@
+<p>register works!</p>
+
+<form [formGroup]="userForm" (submit)="register()">
+    
+    <div class="input-group">
+        <span class="input-group-text">Felhasználónév</span>
+        <input type="text"
+        class="form-control"
+        formControlName="name"
+        >
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">E-mail</span>
+        <input type="text"
+        class="form-control"
+        formControlName="email"
+        >
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">Jelszó</span>
+        <input type="password"
+        class="form-control"
+        formControlName="password"
+        >
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">Jelszó újra</span>
+        <input type="text"
+        class="form-control"
+        formControlName="password_confirmation"
+        >
+    </div>
+    <button type="submit">Regisztrál</button>
+</form>
