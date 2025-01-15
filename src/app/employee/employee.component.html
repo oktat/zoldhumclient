@@ -2,7 +2,8 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary my-2" 
+data-bs-toggle="modal" data-bs-target="#exampleModal">
   Hozzáad
 </button>
 
@@ -11,7 +12,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          {{editMode ? 'Dolgozó szerkesztése' : 'Dolgozó hozzáadása'}}
+        </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -52,6 +55,16 @@
             formControlName="salary"
             >
           </div>
+
+          <div>
+            <label for="">Beosztás</label>
+            <select formControlName="positionId" id="positionId"
+            class="form-select">
+              @for(pos of positionList; track pos.id) {
+                <option value="{{pos.id}}">{{pos.name}}</option>
+              }
+            </select>
+          </div>
         </form>
 
 
@@ -80,6 +93,8 @@
       <th scope="col">Név</th>
       <th scope="col">Település</th>
       <th scope="col">Fizetés</th>
+      <th>Beosztás</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -89,7 +104,9 @@
         <td>{{emp.name}}</td>
         <td>{{emp.city}}</td>
         <td>{{emp.salary}}</td>
-
+        <td>
+          {{emp.position ? emp.position.name : '-'}}
+        </td>
         <td>
           <button type="button" 
           class="btn btn-primary" 

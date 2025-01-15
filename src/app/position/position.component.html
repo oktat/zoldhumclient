@@ -3,7 +3,8 @@
 
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary my-2" 
+data-bs-toggle="modal" data-bs-target="#exampleModal">
   Hozzáad
 </button>
 
@@ -12,7 +13,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">
+          {{editMode ? 'Beosztás szerkesztése' : 'Beosztás hozzáadása'}}
+        </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -44,7 +47,10 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+        (click)="resetForm()">
+          Bezár
+        </button>
         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
         form="positionForm"
         >Ment</button>
@@ -59,7 +65,7 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Név</th>
-
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -79,7 +85,7 @@
 
           <button type="button" 
           class="btn btn-danger mx-2" 
-          (click)="deletePosition(emp.id)">
+          (click)="startDeletePosition(emp.id)">
             <i class="bi bi-trash"></i>
           </button>
 
