@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PosapiService } from '../shared/posapi.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-position',
@@ -77,6 +78,19 @@ export class PositionComponent {
       next: (data: any) => {
         console.log(data)
         this.getPositons()
+      }
+    })
+  }
+
+  startDeletePosition(id: number) {
+    Swal.fire({
+      title: 'Biztosan tovább akarod?',
+      showDenyButton: true,
+      confirmButtonText: 'Igen',
+      denyButtonText: `Nem`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deletePosition(id)
       }
     })
   }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmpapiService } from '../shared/empapi.service';
+import { PosapiService } from '../shared/posapi.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee',
@@ -11,13 +13,15 @@ import { EmpapiService } from '../shared/empapi.service';
 })
 export class EmployeeComponent {
 
-  employeeList !: any;
-  employeeForm !: FormGroup;
+  employeeList !: any
+  positionList !: any
+  employeeForm !: FormGroup
   editMode: boolean = false
 
   constructor(
     private builder: FormBuilder,
-    private empapi: EmpapiService
+    private empapi: EmpapiService,
+    private posapi: PosapiService
   ) { }
 
   ngOnInit(): void {
@@ -25,10 +29,17 @@ export class EmployeeComponent {
       id: 0,
       name: '',
       city: '',
-      salary: ''
+      salary: '',
+      positionId: ''
     })
-
     this.getEmployees()
+    this.getPositions()
+  }
+
+  getPositions() {
+    this.posapi.getPositions().subscribe(res => {
+      this.positionList = res
+    })
   }
 
   getEmployees() {
@@ -70,9 +81,22 @@ export class EmployeeComponent {
   }
 
   deleteEmployee(id: any) {
-    this.empapi.deleteEmployee(id).subscribe({ 
-      next: res => {
-        this.getEmployees()
+    this.startDelete(id)
+  }
+
+  startDelete(id: number) {
+    Swal.fire({
+      title: 'Biztosan tovább akarod?',
+      showDenyButton: true,
+      confirmButtonText: 'Igen',
+      denyButtonText: `Nem`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.empapi.deleteEmployee(id).subscribe({ 
+          next: res => {
+            this.getEmployees()
+          }
+        })
       }
     })
   }
