@@ -1,1 +1,89 @@
-<p>position works!</p>
+
+<h1>Beosztások</h1>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Hozzáad
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form [formGroup]="positionForm" 
+        id="positionForm"
+        (ngSubmit)="savePosition()">
+
+          @if(editMode) {
+            <div class="input-group my-3">
+              <span class="input-group-text w-25">ID</span>
+              <input type="text" 
+              class="form-control"
+              formControlName="id"
+              readonly
+              >
+            </div>
+          }
+
+          <div class="input-group my-3">
+            <span class="input-group-text w-25">Név</span>
+            <input type="text"
+            class="form-control"
+            formControlName="name"
+            >
+          </div>
+        </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
+        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+        form="positionForm"
+        >Ment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Név</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    @for(emp of positionList; track emp.id) {
+      <tr>
+        <td>{{emp.id}}</td>
+        <td>{{emp.name}}</td>
+
+        <td>
+          <button type="button" 
+          class="btn btn-primary" 
+          data-bs-toggle="modal" 
+          data-bs-target="#exampleModal"
+          (click)="editPosition(emp)">
+            <i class="bi bi-pencil"></i>
+          </button>
+
+          <button type="button" 
+          class="btn btn-danger mx-2" 
+          (click)="deletePosition(emp.id)">
+            <i class="bi bi-trash"></i>
+          </button>
+
+      </tr>
+    }
+  </tbody>
+</table>

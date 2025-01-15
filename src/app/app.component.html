@@ -1,3 +1,28 @@
+<header>
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home">Főoldal</a>
+    </li>
+    @if(!loggedIn) {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login">Belépés</a>
+      </li>
+    }
+    @if(loggedIn) {
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/employee">Dolgozók</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/position">Beosztások</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/logout">Kilépés</a>
+      </li>
+    }
+
+  </ul>
+</header>
+
 <div class="container">
-  <app-register></app-register>
+  <router-outlet></router-outlet>
 </div>

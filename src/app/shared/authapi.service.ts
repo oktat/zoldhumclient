@@ -15,7 +15,12 @@ export class AuthapiService {
 
   login(data: any) {
     const url = 'http://localhost:8000/api/login'
-    return this.http.post(url, data);    
+    return this.http.post(url, data);
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 
 }
