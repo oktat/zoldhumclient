@@ -18,9 +18,20 @@ export class AuthapiService {
     return this.http.post(url, data);
   }
 
+  logout() {
+    const url = 'http://localhost:8000/api/logout'
+    return this.http.post(url, null, { headers: this.makeHeader() });
+  }
+
   isLoggedIn() {
     const token = localStorage.getItem('token');
     return !!token;
+  }
+
+  makeHeader() {
+    const token = localStorage.getItem('token')
+    const header = { 'Authorization': 'Bearer ' + token }
+    return header
   }
 
 }
